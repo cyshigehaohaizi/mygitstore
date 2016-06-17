@@ -1,13 +1,24 @@
 
 /*按钮基本样式*/
+/*随字体大小变大或者变小*/
 .button{
     color: #fff;
-    padding:0.6em 2em;
+    padding:0.6em 1em;
     background: #58a linear-gradient(#77a0bb,#58a);
     border:1px solid #446d88;
     border-radius:0.4em;
     box-shadow: 0 .1em .5em gray;
     text-shadow: 0 -.1em .1em #335166;
-    font-size: 2em;
+    font-size: 1em;
     line-height: 1.5;
+    cursor: pointer;
+}
+/*去掉点击边框*/
+.button:focus{
+    outline: none;
+}
+/*出现点击效果*/
+.button:active{
+    text-shadow:0 -.01em .01em #335166;
+    box-shadow: 0 .1em .1em gray;
 }
