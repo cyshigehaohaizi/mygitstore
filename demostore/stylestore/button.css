@@ -1,24 +1,65 @@
 
 /*按钮基本样式*/
 /*随字体大小变大或者变小*/
-.button{
+.btn{
     color: #fff;
     padding:0.6em 1em;
-    background: #58a linear-gradient(#77a0bb,#58a);
-    border:1px solid #446d88;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #666;
     border-radius:0.4em;
-    box-shadow: 0 .1em .5em gray;
-    text-shadow: 0 -.1em .1em #335166;
-    font-size: 1em;
+    font-size: 1.4em;
     line-height: 1.5;
     cursor: pointer;
+    font-family: "Microsoft YaHei";
 }
 /*去掉点击边框*/
-.button:focus{
+.btn:focus{
     outline: none;
 }
-/*出现点击效果*/
-.button:active{
-    text-shadow:0 -.01em .01em #335166;
-    box-shadow: 0 .1em .1em gray;
+/*出现hover效果*/
+.btn:hover{
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.2) inset;
 }
+/*点击效果*/
+.btn:active{
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.1) inset,
+    0 0 10px .2em rgba(0, 0, 0, 0.2) inset;
+}
+/*不同颜色的按钮*/
+.btn.btn-warn{
+    border: 1px solid transparent;
+    color: #fff;
+    background-color: #c00;
+}
+.btn.btn-ok{
+    border: 1px solid transparent;
+    color: #fff;
+    background-color: #6b0;
+}
+.btn.btn-default{
+    border: 1px solid transparent;
+    color: #fff;
+    background-color: #398DEE;
+}
+/*不同大小的按钮*/
+
+.btn.btn-lg{
+    font-size: 1.6em;
+}
+
+.btn.btn-md{
+    font-size: 1.4em;
+}
+.btn.btn-sm{
+    font-size: 1.2em;
+}
+.btn.btn-xsm{
+    font-size: 1em;
+    /*兼容谷歌内核浏览器上字体最小12px*/
+    -webkit-transform-origin-x: 0;
+    -webkit-transform: scale(0.90);
+}
+
+
+
