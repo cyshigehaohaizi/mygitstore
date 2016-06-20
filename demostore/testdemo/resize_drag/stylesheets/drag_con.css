@@ -1,0 +1,51 @@
+*{
+    box-sizing: border-box;
+}
+
+ul{
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    list-style-type: disc;
+}
+#drop_factory{
+    position: absolute;
+    top: 20px;
+    left:20px;
+    right:20px;
+    bottom: 0px;
+    overflow: auto;
+    border: 1px solid #ccc;
+
+}
+#fix_con{
+    width: 804px;
+    border:1px solid #00d6b2;
+    position: relative;
+    margin: 10px auto;
+}
+
+.auto_con{
+    position: relative;
+    height: auto;
+}
+.auto_con li{
+    list-style-type:none;
+    border:1px solid greenyellow;
+    min-width: 57px;
+    min-height: 57px;
+}
+.con{
+    position: absolute;
+}
+
+.control_bar{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #00a2d4;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+
