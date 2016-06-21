@@ -6,54 +6,187 @@
     <script src="../js/jquery-2.1.3.js"></script>
     <link rel="stylesheet" href="../stylesheets/drag_con.css">
 </head>
+<style type="text/css">
+    [data-col="13"] { left:809px; }
+    [data-col="12"] { left:742px; }
+    [data-col="11"] { left:675px; }
+    [data-col="10"] { left:608px; }
+    [data-col="9"] { left:541px; }
+    [data-col="8"] { left:474px; }
+    [data-col="7"] { left:407px; }
+    [data-col="6"] { left:340px; }
+    [data-col="5"] { left:273px; }
+    [data-col="4"] { left:206px; }
+    [data-col="3"] { left:139px; }
+    [data-col="2"] { left:72px; }
+    [data-col="1"] { left:5px; }
+    [data-row="28"] { top:1814px; }
+    [data-row="27"] { top:1747px; }
+    [data-row="26"] { top:1680px; }
+    [data-row="25"] { top:1613px; }
+    [data-row="24"] { top:1546px; }
+    [data-row="23"] { top:1479px; }
+    [data-row="22"] { top:1412px; }
+    [data-row="21"] { top:1345px; }
+    [data-row="20"] { top:1278px; }
+    [data-row="19"] { top:1211px; }
+    [data-row="18"] { top:1144px; }
+    [data-row="17"] { top:1077px; }
+    [data-row="16"] { top:1010px; }
+    [data-row="15"] { top:943px; }
+    [data-row="14"] { top:876px; }
+    [data-row="13"] { top:809px; }
+    [data-row="12"] { top:742px; }
+    [data-row="11"] { top:675px; }
+    [data-row="10"] { top:608px; }
+    [data-row="9"] { top:541px; }
+    [data-row="8"] { top:474px; }
+    [data-row="7"] { top:407px; }
+    [data-row="6"] { top:340px; }
+    [data-row="5"] { top:273px; }
+    [data-row="4"] { top:206px; }
+    [data-row="3"] { top:139px; }
+    [data-row="2"] { top:72px; }
+    [data-row="1"] { top:5px; }
+    [data-sizey="1"] { height:57px; }
+    [data-sizey="2"] { height:124px; }
+    [data-sizey="3"] { height:191px; }
+    [data-sizey="4"] { height:258px; }
+    [data-sizey="5"] { height:325px; }
+    [data-sizey="6"] { height:392px; }
+    [data-sizey="7"] { height:459px; }
+    [data-sizey="8"] { height:526px; }
+    [data-sizey="9"] { height:593px; }
+    [data-sizey="10"] { height:660px; }
+    [data-sizey="11"] { height:727px; }
+    [data-sizey="12"] { height:794px; }
+    [data-sizey="13"] { height:861px; }
+    [data-sizey="14"] { height:928px; }
+    [data-sizey="15"] { height:995px; }
+    [data-sizey="16"] { height:1062px; }
+    [data-sizey="17"] { height:1129px; }
+    [data-sizey="18"] { height:1196px; }
+    [data-sizey="19"] { height:1263px; }
+    [data-sizey="20"] { height:1330px; }
+    [data-sizey="21"] { height:1397px; }
+    [data-sizey="22"] { height:1464px; }
+    [data-sizey="23"] { height:1531px; }
+    [data-sizey="24"] { height:1598px; }
+    [data-sizey="25"] { height:1665px; }
+    [data-sizey="26"] { height:1732px; }
+    [data-sizey="27"] { height:1799px; }
+    [data-sizex="1"] { width:57px; }
+    [data-sizex="2"] { width:124px; }
+    [data-sizex="3"] { width:191px; }
+    [data-sizex="4"] { width:258px; }
+    [data-sizex="5"] { width:325px; }
+    [data-sizex="6"] { width:392px; }
+    [data-sizex="7"] { width:459px; }
+    [data-sizex="8"] { width:526px; }
+    [data-sizex="9"] { width:593px; }
+    [data-sizex="10"] { width:660px; }
+    [data-sizex="11"] { width:727px; }
+    [data-sizex="12"] { width:794px; }
+</style>
 <body>
 <div id="drop_factory">
-
-
-    <div id="fix_con">
-        <ul class="auto_con">
-            <li class="con con1">
-                <span class="control_bar">1</span>
-            </li>
-            <!--<li class="con con2">-->
-                <!--<span class="control_bar">2</span>-->
-            <!--</li>-->
-        </ul>
-    </div>
-
-
+    <ul class="auto_con">
+        <li class="con con1">
+            <div class="con_head drag_bar">head</div>
+            <span class="resize_bar">1</span>
+        </li>
+        <li class="con con2">
+            <div class="con_head drag_bar">head</div>
+            <span class="resize_bar">2</span>
+        </li>
+    </ul>
 </div>
+
 </body>
 <script>
     $(function () {
-        $(".control_bar").bind('mousedown',function(){
-            //绑定需要拖拽control_bar
-            bindResize(this);
-        })
-    });
-
-    function bindResize(bar) {
-         //初始化参数
-        var bars = bar.style,
-        //鼠标的 X 和 Y 轴坐标
-         x = y = 0;
-        //鼠标
-        $(bar).mousedown(function (e) {
-        //按下元素后，计算当前鼠标与对象计算后的坐标
-            x = e.clientX - bar.offsetWidth,
-            y = e.clientY - bar.offsetHeight;
+        $.each($(".resize_bar"), function (i, e) {
+            bindResize(e);
+        });
+        $(".drag_bar").bind('mousedown', function () {
+            bindDrag(this.parentNode);
+        });
+        //鼠标停止mousemove解绑,停止drag
+        $(document).bind("mouseup", function () {
+            $(document).unbind("mousemove");
+            $.each($(".drag_bar"), function (i, e) {
+                releaseDrag(this.parentNode);
+            });
         });
 
+    });
+    function bindResize(bar) {
+        //初始化参数
+        var el = bar.parentNode;
+        //鼠标的 X 和 Y 轴坐标
+        var x, y;
+        //鼠标按下时候被触发
+        $(bar).mousedown(function (e) {
+            //按下元素后，计算当前鼠标与父对象计算后的坐标
+            x = e.clientX - el.offsetWidth;
+            y = e.clientY - el.offsetHeight;
+            $(document).bind("mousemove", mouseMove).bind("mouseup", mouseUp);
+            e.preventDefault();
+        });
         //移动事件
         function mouseMove(e) {
-
+            //父元素的宽高改变
+//            el.style.width = e.clientX - x + "px";
+//            el.style.height = e.clientY - y + "px";
+            $(el).css({"width":(e.clientX - x + "px"),"height":(e.clientY - y + "px")})
+            //判断宽度应该在哪一个size里面
+            var w = parseInt($(el).css("width"));
+            var h = parseInt($(el).css("height"));
+//            console.log("拉伸的宽高",w,h);
+            var sizeX=(parseInt((w-57)/67))+1;
+            ( ((w-57)%67)>20) && (sizeX=sizeX+1) ;
+            $(el).attr({"data-sizeX":sizeX});
         }
 
-       //停止事件
         function mouseUp() {
+            $(document).unbind("mousemove", mouseMove).unbind("mouseup", mouseUp);
+            //宽度改变之后判断到底在哪个格子里面
 
+            var w = parseInt($(el).css("width"));
+            var h = parseInt($(el).css("height"));
+            console.log("拉伸的宽高",w,h);
+            //判断宽度应该在哪一个size里面
+           var m= $(el).attr("data-sizeX");
+
+
+
+
+
+            $(el).animate({
+                width: w + "px",
+                height: h + "px"
+            })
         }
     }
+
+    function bindDrag(el) {
+        $(el).bind('mousedown', function (e) {
+            var x = e.pageX - $(this).offset().left;
+            var y = e.pageY - $(this).offset().top;
+            $(document).mousemove(function (e) {
+                $(el).css({"left": (e.pageX - x), "top": (e.pageY - y)});
+            });
+        });
+
+    }
+    function releaseDrag(el) {
+        $(el).unbind("mousedown");
+    }
+
+
+
+
+
 
 </script>
 </html>
