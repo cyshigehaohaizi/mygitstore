@@ -156,8 +156,11 @@
             var h = parseInt($(el).css("height"));
             console.log("拉伸的宽高",w,h);
             //判断宽度应该在哪一个size里面
-           var m= $(el).attr("data-sizeX");
 
+           var m= $(el).attr("data-sizeX");
+            var str="data-sizeX="+m+"";
+            console.log(str);
+            $(el).addClass(str);
 
 
 
