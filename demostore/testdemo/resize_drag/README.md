@@ -11,4 +11,3 @@ https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
                 return element.style[prop];
 
 
-[参考文档](http://www.cnblogs.com/jihua/p/jquerydrag.html)
