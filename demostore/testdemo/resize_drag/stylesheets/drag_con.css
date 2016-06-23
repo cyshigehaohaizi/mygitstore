@@ -12,12 +12,14 @@ ul{
 }
 #drop_factory{
     position: absolute;
+    width: 804px;
     top: 20px;
     left:20px;
     right:20px;
     bottom: 0px;
-    overflow: auto;
     border: 1px solid #ccc;
+    z-index: 0;
+
 }
 .auto_con{
     position: relative;
@@ -29,10 +31,12 @@ ul{
     min-width: 57px;
     min-height: 57px;
     border-radius: 4px;
+    background-color: white;
 
 }
 .con{
     position: absolute;
+    z-index: 990;
 }
 .drag_bar{
     width:100%;
@@ -40,6 +44,7 @@ ul{
     color: white;
     background-color: #178CDF;
     cursor: move;
+    text-align: center;
 
 }
 .resize_bar{
@@ -53,12 +58,18 @@ ul{
     bottom:0px;
     cursor:se-resize;
 }
-.con1{
-    left:5px;
-}
-.con2{
-    left:72px;
-}
+/*.con1{*/
+    /*left:5px;*/
+    /*top:5px;*/
+/*}*/
+/*.con2{*/
+    /*top:5px;*/
+    /*left:72px;*/
+/*}*/
+/*.con3{*/
+    /*top:5px;*/
+    /*left:139px;*/
+/*}*/
 
 
 
