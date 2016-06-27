@@ -12,11 +12,11 @@
 <body>
 <div id="drop_factory">
     <ul class="auto_con">
-        <li class="con con1"  data-sizeX='1' data-sizeY="1" data-col="1" data-row="1">
+        <li class="con con1"  data-sizeX='1' data-sizeY="1" data-col="1" data-row="2">
         <div class="con_head drag_bar">head</div>
         <span class="resize_bar">1</span>
         </li>
-        <li class="con con2" data-sizeX="1" data-sizeY="1" data-col="2" data-row="1">
+        <li class="con con2" data-sizeX="1" data-sizeY="1" data-col="1" data-row="1">
         <div class="con_head drag_bar">head</div>
         <span class="resize_bar">2</span>
         </li>
@@ -44,6 +44,7 @@
             var drag_el = new DragCon(el);
             conlist.push(drag_el);
         });
+
     });
 
 
@@ -55,10 +56,10 @@
         this.drag_bar = $(el).find(".drag_bar");
         this.resize_bar = $(el).find(".resize_bar");
 
-        this.sizeX = $(el).attr('data-sizeX');//所占宽度是多少
-        this.sizeY = $(el).attr('data-sizeY');//所占高度是多少
-        this.col = $(el).attr("data-col");//所在多少列
-        this.row = $(el).attr("data-row");//所在多少行
+        this.sizeX = parseInt($(el).attr('data-sizeX'));//所占宽度是多少
+        this.sizeY = parseInt($(el).attr('data-sizeY'));//所占高度是多少
+        this.col = parseInt($(el).attr("data-col"));//所在多少列
+        this.row =parseInt($(el).attr("data-row")) ;//所在多少行
 
 
         //初始记录鼠标的位置也用来记录鼠标上一次的位置
@@ -69,7 +70,9 @@
         var that=this;
         this.drag_bar.bind("mousedown", function (e) {
              that.mouse_left= e.clientX,that.mouse_top= e.clientY;
+            //添加拖动标志
              that.el.css("z-index",998);
+             that.el.attr("lock","locked");
             //鼠标按下之后给document添加onmousemove和onmouseup事件
              $(document).bind("mousemove", mouseMoveDrag).bind("mouseup", mouseUpDrag);
          });
@@ -93,12 +96,17 @@
             that.mouse_top = e.clientY;
             target.css({ 'left': movex, 'top': movey});
             calculateBoxPosition(movex,movey);
+//            adjustAllBoxPosition();
 
         };
         function mouseUpDrag(e){
-            that.el.css("z-index",990);
             $(document).unbind("mousemove", mouseMoveDrag).unbind("mouseup", mouseUpDrag);
-            that.adjustBoxPosition();
+//            that.adjustBoxPosition();
+            //解锁标志
+            adjustAllBoxPosition();
+            that.el.css("z-index",990);
+            that.el.removeAttr("lock");
+
         };
 
         //计算盒子应该在哪个位置
@@ -116,11 +124,13 @@
             this.el.animate({
                 left: col_l + "px",
                 top: row_t + "px"
-            })
+            });
         }
         this.resize_bar.bind("mousedown",function(e){
             that.mouse_left= e.clientX,that.mouse_top= e.clientY;
+            //被改变元素标志出来
             that.el.css("z-index",998);
+            that.el.attr("lock","locked");
             $(document).bind("mousemove", mouseMoveResize).bind("mouseup", mouseUpResize);
             e.preventDefault();
         });
@@ -143,13 +153,19 @@
             //计算现在的宽高是在哪个sizex,sizey里面
             calculateBoxSize(w,h);
             //调整其他盒子的位置
+//            adjustAllBoxPosition();
 
 
         }
         function mouseUpResize(e){
-            that.el.css("z-index",998);
+
             $(document).unbind("mousemove", mouseMoveResize).unbind("mouseup", mouseUpResize);
             adjustBoxSize();
+            //解锁标志
+            adjustAllBoxPosition();
+            that.el.css("z-index",998);
+            that.el.removeAttr("lock");
+
         }
         //计算盒子的宽高是在哪个sizex,sizey里面
         function calculateBoxSize(w,h){
@@ -176,6 +192,89 @@
     }
 
     function adjustAllBoxPosition(){
+        //根据row排序
+       var clist=conlist.sort(function(a,b){
+           return a.row- b.row;
+       });
+        var len=clist.length;
+        for(var i=0;i<len;i++){
+            if(!clist[i].el.attr("lock")){//如果不是当前操作的元素那么执行调整
+                    var armlist=clist.filter(function(e,index){
+                        if(index<i){//找出当前元素的前面的元素
+                            if((e.col<=clist[i].col && clist[i].col< e.col+ e.sizeX)
+                            ||(e.col<clist[i].col+clist[i].sizeX && clist[i].col+clist[i].sizeX< e.col+ e.sizeX)){
+                                //如果 他们出现在当前row的范围里面那么记录下来
+                                return (e);
+                            }
+                        }
+                    });
+                    if(armlist.length<=0){//如果上面木有盒子挡住那么移动到最上面
+                        console.log(clist[i].row,clist[i].col);
+                        clist[i].row=1;
+                        console.log(clist[i].row,clist[i].col);
+
+                    }else {//如果上面有挡住那么直接定位到挡住盒子的下面
+                        var max=armlist[0].row+armlist[0].sizeY;
+                        for(var m=0;m<armlist.length;m++){
+                            if(armlist[m].row+armlist[m].sizeY>max){
+                                max=armlist[m].row+armlist[m].sizeY;
+                                console.log(max);
+                            }
+                        }
+                        clist[i].row=max;
+
+                    }
+                    clist[i].adjustBoxPosition();
+            }
+
+        }
+
+
+//        var cons = conlist.sort(function(a,b){
+//            return a.row - b.row;
+//        });
+//        var len = cons.length;
+//        for(var i=0;i<len;i++){
+//            var flag = false;
+//            var r=parseInt(cons[i].row),c=parseInt(cons[i].col),sX=parseInt(cons[i].sizeX),sY=parseInt(cons[i].sizeY);
+//            //循环判断box应该所在的row
+//            while(true){
+//                //因为已经按行排序,第一个box必定需要放在第一行
+//                if(i==0){
+//                    r = 1;
+//                    flag = true;
+//                    break;
+//                }
+//                //循环判断box上方是否存在其他box，如果存在，则row值确定
+//                for(var j=0;j<i;j++){
+//                    var rj = parseInt(cons[j].row);
+//                    var cj = parseInt(cons[j].col);
+//                    var sXj = parseInt(cons[j].sizeX);
+//                    var sYj = parseInt(cons[j].sizeY);
+//
+//                    if(cons[i].el.is(cons[j].el)){
+//                        continue;
+//                    }
+//
+//                    if(r == 1 ||
+//                            r == rj+sYj &&
+//                            (c >= cj && c < cj + sXj||
+//                            c + sX > cj && c  + sX <= cj + sXj)){
+//                        flag = true;
+//                        break;
+//                    }
+//                }
+//
+//                if(flag){
+//                    break;
+//                }
+//                r--;
+//            }
+//            cons[i].row = r;
+//            cons[i].adjustBoxPosition();
+//        }
+
+
 
 
     }
