@@ -26,6 +26,7 @@
         </li>
 
     </ul>
+    <!--<div class="placeholder"></div>-->
 </div>
 
 </body>
@@ -103,9 +104,11 @@
             //解锁标志
             that.el.attr("rlock", "rlocked");
             adjustAllBoxPosition();
-            that.el.css({"z-index": 998, "box-shadow": "none"});
+            that.el.css({"z-index": 990, "box-shadow": "none"});
             that.el.removeAttr("lock");
             that.el.removeAttr("rlock");
+            //清除预选位置box
+            $(".primary").remove();
 
         };
         //计算盒子应该在哪个位置
@@ -162,9 +165,11 @@
             //解锁标志
             that.el.attr("rlock", "rlocked");
             adjustAllBoxPosition();
-            that.el.css({"z-index": 998, "box-shadow": "none"});
+            that.el.css({"z-index": 990, "box-shadow": "none"});
             that.el.removeAttr("lock");
             that.el.removeAttr("rlock");
+            //清除预选位置box
+            $(".primary").remove();
 
         }
 
@@ -175,6 +180,7 @@
             that.sizeY = (parseInt((h - 57) / 67)) + 1;
             ( ((h - 57) % 67) > 20) && (that.sizeY = that.sizeY + 1);
             that.el.attr({"data-sizeX": that.sizeX, "data-sizeY": that.sizeY});
+
         }
 
         //调整盒子的宽度
@@ -231,16 +237,24 @@
             }
 
 
-            if (!clist[i].el.attr("lock")) {
-                if (clist[i].row != row) {
+            //box移动过程中，拖拽box不参与位置变动
+            if(!clist[i].el.attr("lock")){
+                //如果两次变动结果一直，不打断当前位移动作
+                if( clist[i].row != row){
                     clist[i].el.stop();
                     clist[i].row = row;
                     clist[i].adjustBoxPosition();
                 }
 
+            }else{
+                //拖拽box预选位置变动
+                clist[i].row = row;
+                var li = "<li class='primary' style='width:"+sizeX[clist[i].sizeX-1]+"px;height:"+sizeY[clist[i].sizeY-1]+"px;left:"+Col[clist[i].col-1]+"px;top:"+Row[clist[i].row-1]+"px'></li>";
+                $(".primary").remove();
+                $(".auto_con").append(li);
             }
-
-            if (clist[i].el.attr("rlock")) {
+            //释放box时，拖拽box也要加入布局中
+            if(clist[i].el.attr("rlock")){
                 clist[i].row = row;
                 clist[i].adjustBoxPosition();
             }

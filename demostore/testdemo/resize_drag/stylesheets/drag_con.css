@@ -12,6 +12,7 @@ ul{
 }
 #drop_factory{
     position: absolute;
+    height: 1814px;
     width: 804px;
     top: 20px;
     left:20px;
@@ -21,11 +22,20 @@ ul{
     z-index: 0;
 
 }
+/*.placeholder{*/
+    /*position: absolute;*/
+    /*display: inline-block;*/
+    /*z-index: -1;*/
+    /*height: 200px;*/
+    /*width: 200px;*/
+    /*border: 2px dashed #ccc;*/
+/*}*/
+
 .auto_con{
     position: relative;
     height: auto;
 }
-.auto_con li{
+.auto_con .con{
     list-style-type:none;
     border:1px solid #178CDF;
     min-width: 57px;
@@ -34,6 +44,14 @@ ul{
     background-color: white;
 
 }
+.primary{
+    list-style-type:none;
+    position: absolute;
+    z-index: 900;
+    border: 2px dashed #ccc;
+    /*background-color: #aaaaaa;*/
+}
+
 .con{
     position: absolute;
     z-index: 990;
@@ -58,18 +76,7 @@ ul{
     bottom:0px;
     cursor:se-resize;
 }
-/*.con1{*/
-    /*left:5px;*/
-    /*top:5px;*/
-/*}*/
-/*.con2{*/
-    /*top:5px;*/
-    /*left:72px;*/
-/*}*/
-/*.con3{*/
-    /*top:5px;*/
-    /*left:139px;*/
-/*}*/
+
 
 
 
