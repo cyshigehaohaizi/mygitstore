@@ -236,16 +236,25 @@
 
         var len = clist.length;
         for (var i = 0; i < len; i++) {
-            var armlist = clist.filter(function (e, index) {
-                if (index < i) {//找出当前元素的前面的元素
-                    if ((e.col <= clist[i].col && clist[i].col < e.col + e.sizeX)
-                            || (e.col < clist[i].col + clist[i].sizeX && clist[i].col + clist[i].sizeX < e.col + e.sizeX)
-                            || (e.col >= clist[i].col && (e.col + e.sizeX <= clist[i].col + clist[i].sizeX))) {
+//            var armlist = clist.filter(function (e, index) {
+//                if (index < i) {//找出当前元素的前面的元素
+//                    if ((e.col <= clist[i].col && clist[i].col < e.col + e.sizeX)
+//                            || (e.col < clist[i].col + clist[i].sizeX && clist[i].col + clist[i].sizeX < e.col + e.sizeX)
+//                            || (e.col >= clist[i].col && (e.col + e.sizeX <= clist[i].col + clist[i].sizeX))) {
+//                        //如果 他们出现在当前row的范围里面那么记录下来
+//                        return (e);
+//                    }
+//                }
+//            });
+            var armlist=[];
+            for(var j=0;j<i;j++){//找出当前元素的前面的元素
+                    if ((clist[j].col <= clist[i].col && clist[i].col < clist[j].col + clist[j].sizeX)
+                            || (clist[j].col < clist[i].col + clist[i].sizeX && clist[i].col + clist[i].sizeX < clist[j].col + clist[j].sizeX)
+                            || (clist[j].col >= clist[i].col && (clist[j].col + clist[j].sizeX <= clist[i].col + clist[i].sizeX))) {
                         //如果 他们出现在当前row的范围里面那么记录下来
-                        return (e);
+                        armlist.push(clist[j])
                     }
-                }
-            });
+            }
             var row = clist[i].row;
             if (armlist.length <= 0) {//如果上面木有盒子挡住那么移动到最上面
                 row = 1;
