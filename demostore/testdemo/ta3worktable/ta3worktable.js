@@ -12,16 +12,41 @@ var Row = [5, 72, 139, 206, 273, 340, 407, 474, 541, 608, 675, 742, 809,
 //装入盒子容器list
 var conlist = [];
 $(function () {
+
+
+       //$("#add_con").
         $.each($(".con"), function (i, el) {
             var drag_el = new DragCon(el);
             conlist.push(drag_el);
         });
     initAllBoxPosition();
 
+
 });
+
+//$("#add_con").click(function(){
+//
+//    initAllBoxPosition();//创建完成初始化位置
+//
+//});
+
+
+//
+//function  creatDragcon(){
+//
+//
+//}
+//
+//
+//
+//
+//function addCon(){
+//
+//}
+
+
 function DragCon(el) {
     //el被拖动的元素,drag_bar移动控制条,resize_bar,改变大小控制条
-
     //初始化参数
     this.el = $(el);
     this.drag_bar = $(el).find(".drag_bar");
@@ -195,7 +220,6 @@ function DragCon(el) {
         that.adjustBoxPosition();
 
     }
-
     init();
 }
 

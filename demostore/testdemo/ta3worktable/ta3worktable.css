@@ -47,6 +47,39 @@ ul{
     z-index: 990;
 
 }
+/*添加框*/
+.con.add_new_con{
+   border:2px dotted #aaa;
+    text-align: center;
+}
+.con.add_new_con>span{
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 2px dotted #aaa;
+    margin-top: 7px;
+    text-align: center;
+
+}
+.con.add_new_con>span .vertical{
+    position: absolute;
+    display: inline-block;
+    top: 15%;
+    left: 49%;
+    height: 77%;
+    border-right: 2px solid #aaa;
+    background-color: red;
+}
+.con.add_new_con>span .horizontal{
+    position: absolute;
+    display: inline-block;
+    width: 77%;
+    top: 50%;
+    left: 16%;
+    border-bottom: 2px solid #aaa;
+
+}
 .placeholder{
     list-style-type:none;
     position: absolute;
