@@ -1,18 +1,29 @@
+$miancolor: #178CDF;
+
 @font-face {
   font-family: "ta3worktable";
-  src: url("./fonts/icomoon.eot");
-  src: url("./fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("./fonts/icomoon.woff") format("woff"), url("./fonts/icomoon.ttf") format("truetype"), url("./fonts/icomoon.svg#iconfont") format("svg"); }
+  //src:url(./fonts/icomoon.woff);
+  src: url('./fonts/icomoon.eot');
+  src: url('./fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+  url('./fonts/icomoon.woff') format('woff'),
+  url('./fonts/icomoon.ttf') format('truetype'),
+  url('./fonts/icomoon.svg#iconfont') format('svg');
+}
+
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 body {
-  font-family: "Microsoft YaHei"; }
+  font-family: "Microsoft YaHei";
+}
 
 ul {
   margin: 0px;
   padding: 0px;
   display: block;
-  list-style-type: disc; }
+  list-style-type: disc;
+}
 
 #drop_factory {
   position: absolute;
@@ -24,11 +35,14 @@ ul {
   bottom: 0px;
   border: 1px solid #ccc;
   z-index: 0;
-  /*background-color: red;*/ }
+  /*background-color: red;*/
+
+}
 
 .auto_con {
   position: relative;
-  height: auto; }
+  height: auto;
+}
 
 .auto_con .con {
   list-style-type: none;
@@ -38,11 +52,14 @@ ul {
   border-radius: 4px;
   background-color: white;
   position: absolute;
-  z-index: 990; }
+  z-index: 990;
+
+}
 
 .con.add_new_con {
   border: 2px dotted #aaa;
-  text-align: center; }
+  text-align: center;
+}
 
 .con.add_new_con > span {
   position: relative;
@@ -52,10 +69,13 @@ ul {
   border: 2px dotted #aaa;
   margin-top: 7px;
   text-align: center;
-  cursor: pointer; }
+  cursor: pointer;
+
+}
 
 .con.add_new_con > span:hover {
-  background-color: #ccc; }
+  background-color: #ccc;
+}
 
 .con.add_new_con > span .vertical {
   position: absolute;
@@ -63,7 +83,9 @@ ul {
   top: 15%;
   left: 49%;
   height: 77%;
-  border-right: 2px solid #aaa; }
+  border-right: 2px solid #aaa;
+
+}
 
 .con.add_new_con > span .horizontal {
   position: absolute;
@@ -71,13 +93,16 @@ ul {
   width: 77%;
   top: 50%;
   left: 16%;
-  border-bottom: 2px solid #aaa; }
+  border-bottom: 2px solid #aaa;
+
+}
 
 .placeholder {
   list-style-type: none;
   position: absolute;
   z-index: 900;
-  border: 2px dashed #ccc; }
+  border: 2px dashed #ccc;
+}
 
 .drag_bar {
   position: absolute;
@@ -89,41 +114,51 @@ ul {
   cursor: move;
   text-align: center;
   overflow: hidden;
-  padding-top: 5px; }
+  padding-top: 5px;
+}
 
 .drag_bar .con_head_type {
   float: left;
-  margin-left: 10px; }
+  margin-left: 10px;
+
+}
 
 .drag_bar .con_head_refresh {
   float: right;
   margin-right: 10px;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .drag_bar .con_head_refresh:before {
   font-family: "ta3worktable";
   font-size: 12px;
-  content: "\e901"; }
+  content: "\e901";
+}
 
 .drag_bar .con_head_delete {
   cursor: pointer;
   float: right;
-  margin-right: 10px; }
+  margin-right: 10px;
+}
 
 .drag_bar .con_head_delete:before {
   font-family: "ta3worktable";
   font-size: 14px;
-  content: "\e902"; }
+  content: "\e902";
+}
 
 .con_content {
   width: 100%;
   padding-top: 30px;
   height: 100%;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .con_content iframe {
   height: 100%;
-  width: 100%; }
+  width: 100%;
+
+}
 
 .resize_bar {
   display: inline-block;
@@ -134,7 +169,8 @@ ul {
   right: 0px;
   bottom: 0px;
   cursor: se-resize;
-  text-align: center; }
+  text-align: center;
+}
 
 .resize_bar span {
   display: inline-block;
@@ -144,7 +180,9 @@ ul {
   border-bottom: 2px solid #aaa;
   border-right: 2px solid #aaa;
   right: 5px;
-  bottom: 5px; }
+  bottom: 5px;
+
+}
 
 #mask_con {
   position: absolute;
@@ -155,7 +193,8 @@ ul {
   bottom: 0px;
   top: 0px;
   z-index: 999;
-  background-color: rgba(17, 17, 17, 0.47); }
+  background-color: rgba(17, 17, 17, 0.47);
+}
 
 .mask_content {
   width: 300px;
@@ -167,7 +206,8 @@ ul {
   bottom: 0px;
   top: 0px;
   /*background-color: white;*/
-  border-radius: 10px; }
+  border-radius: 10px;
+}
 
 .mask_content_head {
   height: 30px;
@@ -176,19 +216,23 @@ ul {
   border-radius: 10px 10px 0px 0px;
   color: white;
   line-height: 30px;
-  padding-left: 20px; }
-  .mask_content_head #close_mask {
+  padding-left: 20px;
+  #close_mask {
     display: inline-block;
     width: 16px;
     height: 16px;
     border-radius: 100%;
     background-color: white;
-    color: #178CDF;
+    color: $miancolor;
     float: right;
     line-height: 16px;
     text-align: center;
     margin: 5px 10px 0px 0px;
-    cursor: pointer; }
+    cursor: pointer;
+
+  }
+
+}
 
 .mask_content_con {
   background-color: white;
@@ -196,22 +240,26 @@ ul {
   display: table;
   width: 100%;
   padding: 10px 10px 0px 10px;
-  color: #666; }
-  .mask_content_con input[type=text] {
+  color: #666;
+  input[type=text] {
     margin-left: 10px;
     border: none;
-    border-bottom: 1px solid #178CDF;
-    padding-left: 10px; }
-    .mask_content_con input[type=text]:focus {
-      outline: none; }
-  .mask_content_con div {
+    border-bottom: 1px solid $miancolor;
+    padding-left: 10px;
+    &:focus {
+      outline: none;
+    }
+  }
+  div {
     width: 100%;
     height: 32px;
     line-height: 32px;
-    background-color: #178CDF;
+    background-color: $miancolor;
     color: white;
     text-align: center;
     cursor: pointer;
-    margin-top: 10px; }
+    margin-top: 10px;
 
-/*# sourceMappingURL=ta3worktable.css.map */
+  }
+
+}

@@ -9,24 +9,27 @@
 <body>
 <div id="drop_factory">
     <ul class="auto_con">
-        <li class="con" data-sizeX='5' data-sizeY="4" data-col="1" data-row="1">
-            <div class="drag_bar">
-                <span class="con_head_type">系统</span>
-                <span class="con_head_delete"></span>
-                <span class="con_head_refresh"></span>
-            </div>
-            <div class="con_content">
-                <iframe  frameborder="0" scrolling="yes" src="https://www.baidu.com/"></iframe>
-            </div>
-            <span class="resize_bar"><span></span></span>
-        </li>
-        <li class="con add_new_con" data-sizeX='5' data-sizeY="1" data-col="6" data-row="1">
+
+        <li class="con add_new_con" data-sizeX='5' data-sizeY="1" data-col="1" data-row="1">
             <span id="add_con">
                  <span class="vertical"></span>
                 <span class="horizontal"></span>
             </span>
         </li>
     </ul>
+    <div id="mask_con">
+        <div class="mask_content">
+            <div class="mask_content_head">
+                添加面板
+                <span id="close_mask">×</span>
+            </div>
+            <div class="mask_content_con">
+                面板名称<input type="text" id="m_name" value="名称"/><br/>
+                面板路径<input type="text" id="m_src" value="https://www.baidu.com/"/>
+                <div id="ensure_create">确认创建</div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="jquery-1.11.0.min.js"></script>
 <script src="ta3worktable.js"></script>
