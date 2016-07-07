@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <title>worktable</title>
     <link rel="stylesheet" href="ta3worktable.css">
-
 </head>
 <body>
 <div id="drop_factory">
     <ul class="auto_con">
-
         <li class="con add_new_con" data-sizeX='5' data-sizeY="1" data-col="1" data-row="1">
             <span id="add_con">
                  <span class="vertical"></span>
@@ -17,21 +15,37 @@
             </span>
         </li>
     </ul>
-    <div id="mask_con">
-        <div class="mask_content">
-            <div class="mask_content_head">
-                添加面板
-                <span id="close_mask">×</span>
-            </div>
-            <div class="mask_content_con">
-                面板名称<input type="text" id="m_name" value="名称"/><br/>
-                面板路径<input type="text" id="m_src" value="https://www.baidu.com/"/>
-                <div id="ensure_create">确认创建</div>
-            </div>
+</div>
+<!--弹出层-->
+<div id="mask_con">
+    <div class="mask_bg"></div>
+    <div class="mask_content">
+        <div class="mask_content_head">
+            添加面板
+            <span id="close_mask">×</span>
+        </div>
+        <div class="mask_content_con">
+            面板名称<input type="text" id="m_name" value="名称"/><br/>
+            面板路径<input type="text" id="m_src" value="https://www.baidu.com/"/>
+            <div id="ensure_create">确认创建</div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
 <script src="jquery-1.11.0.min.js"></script>
 <script src="ta3worktable.js"></script>
+
+<script>
+
+
+</script>
+
 </body>
 </html>

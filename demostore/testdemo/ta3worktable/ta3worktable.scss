@@ -27,16 +27,15 @@ ul {
 
 #drop_factory {
   position: absolute;
-  /*height: 1814px;*/
-  width: 804px;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  margin: auto;
+  //height: 1814px;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   bottom: 0px;
   border: 1px solid #ccc;
   z-index: 0;
-  /*background-color: red;*/
-
 }
 
 .auto_con {
@@ -53,6 +52,7 @@ ul {
   background-color: white;
   position: absolute;
   z-index: 990;
+  overflow: hidden;
 
 }
 
@@ -194,6 +194,18 @@ ul {
   top: 0px;
   z-index: 999;
   background-color: rgba(17, 17, 17, 0.47);
+  .mask_bg{
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    z-index: 990;
+    background-color: black;
+    filter:alpha(style=0,opacity=50);
+    background-color: rgba(17, 17, 17, 0.47);
+  }
 }
 
 .mask_content {
@@ -205,7 +217,7 @@ ul {
   right: 0px;
   bottom: 0px;
   top: 0px;
-  /*background-color: white;*/
+  z-index: 999;
   border-radius: 10px;
 }
 
