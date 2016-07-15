@@ -1,0 +1,60 @@
+$border_color:#000;
+$header_bgcolor:red;
+
+
+
+.simple_table{
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #00b3ee;
+  font-family: "Microsoft YaHei";
+  .header{
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    position: relative;
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+    background-color: $header_bgcolor;
+    >div{
+      padding: 0px;
+      margin: 0px;
+      border: 1px solid $border_color;
+      border-bottom: 0px;
+      display: table-cell;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      line-height: 200%;
+      box-sizing: border-box;
+    }
+  }
+  .content{
+    width: 100%;
+    position: relative;
+    overflow: auto;
+    background: green;
+    .con{
+      //table的宽度由td来控制,td的宽度由header中的小格div控制
+      border-collapse: collapse;
+      box-sizing: border-box;
+      table-layout: fixed;
+      width:0px;
+      td{
+        padding: 0px;
+        height: 30px;
+        border: 1px solid $border_color;
+        box-sizing: border-box;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+  }
+}
+
