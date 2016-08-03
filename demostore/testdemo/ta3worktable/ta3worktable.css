@@ -25,6 +25,7 @@ ul {
   left: 0px;
   right: 0px;
   bottom: 0px;
+  border: 1px solid #ccc;
   z-index: 0; }
 
 .auto_con {
@@ -42,12 +43,12 @@ ul {
   z-index: 990;
   overflow: hidden; }
 
-.con.add_new_con {
+.add_new_con {
   border: 2px dotted #aaa;
   text-align: center;
   z-index: 0; }
 
-.con.add_new_con > span {
+.add_new_con > span {
   position: relative;
   display: inline-block;
   width: 40px;
@@ -57,10 +58,10 @@ ul {
   text-align: center;
   cursor: pointer; }
 
-.con.add_new_con > span:hover {
+.add_new_con > span:hover {
   background-color: #ccc; }
 
-.con.add_new_con > span .vertical {
+.add_new_con > span .vertical {
   position: absolute;
   display: inline-block;
   top: 15%;
@@ -68,7 +69,7 @@ ul {
   height: 77%;
   border-right: 2px solid #aaa; }
 
-.con.add_new_con > span .horizontal {
+.add_new_con > span .horizontal {
   position: absolute;
   display: inline-block;
   width: 77%;
@@ -90,7 +91,7 @@ ul {
   color: white;
   background-color: #178CDF;
   cursor: move;
-  text-align: center;
+  text-align: left;
   overflow: hidden;
   padding-top: 5px; }
 

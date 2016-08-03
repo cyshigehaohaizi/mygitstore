@@ -8,7 +8,7 @@
 <body>
 <div id="drop_factory">
     <ul class="auto_con">
-        <li class="con add_new_con" >
+        <li class="add_new_con" >
             <span id="add_con">
                  <span class="vertical"></span>
                 <span class="horizontal"></span>
@@ -16,13 +16,15 @@
         </li>
     </ul>
 </div>
+
+
 <!--弹出层-->
 <div id="mask_con">
     <div class="mask_bg"></div>
     <div class="mask_content">
         <div class="mask_content_head">
             添加面板
-            <span id="close_mask">×</span>
+            <span id="close_mask"  onclick="Mask_con.closeMask()">×</span>
         </div>
         <div class="mask_content_con">
             <p>默认面板</p>
@@ -46,9 +48,6 @@
                     </div>
                 <span id="ensure_create">确认创建</span>
             </div>
-
-
-
         </div>
     </div>
 </div>
@@ -62,11 +61,6 @@
 
 <script src="jquery-1.11.0.min.js"></script>
 <script src="ta3worktable.js"></script>
-
-<script>
-
-
-</script>
 
 </body>
 </html>

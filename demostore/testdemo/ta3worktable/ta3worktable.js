@@ -2,53 +2,25 @@
  * Created by Administrator on 2016/6/30.
  */
 
+var a=0;
 
 var container = new Container();//容器
-var elInfo=[
-    {"name":"代办","src":"","sX":5,"sY":4,"cl":1,"rw":1},
-    {"name":"系统","src":"","sX":5,"sY":4,"cl":6,"rw":1},
-    {"name":"通知","src":"","sX":5,"sY":4,"cl":11,"rw":1},
-    {"name":"协同管理","src":"","sX":5,"sY":4,"cl":1,"rw":6}]
-   ;
+var elInfo = [
+        {id:"001","name": "代办", "src": "test.html", "sX": 5, "sY": 4, "cl": 1, "rw": 1},
+        {"id":"002","name": "系统", "src": "test.html", "sX": 5, "sY": 4, "cl": 6, "rw": 1},
+        {"id":"003","name": "通知", "src": "test.html", "sX": 5, "sY": 4, "cl": 11, "rw": 1},
+        {id:"004","name": "协同管理", "src": "test.html", "sX": 5, "sY": 4, "cl": 1, "rw": 5}];
+
 initCreatePanel();
 container.adjustAllBoxPosition();
+
 var add_con = new AddCon();//添加框
 var Mask_con = {
-    panel_name: "",
-    panel_src: "",
-    chooseCreate: function (createNewPanel) {
-        this.openMask();
-        //确认创建那么运行回调函数
-        this.ensureCreate(createNewPanel);
-        this.cancelCreate();
-    },
     openMask: function () {
-        var mask_con= document.getElementById("mask_con");
-        mask_con.style.display = "block";
-    },
-    cancelCreate: function () {
-        $("#close_mask").click(function () {
-            this.panel_name = "";
-            this.panel_src = "";
-            document.getElementById("mask_con").style.display = "none";
-        })
+        document.getElementById("mask_con").style.display = "block";
     },
     closeMask: function () {
-        var m_name = document.getElementById("m_name").value,
-            m_src = document.getElementById("m_src").value;
-        this.panel_name = m_name;
-        this.panel_src = m_src;
         document.getElementById("mask_con").style.display = "none";
-    },
-    ensureCreate: function (createNewPanel) {
-        var that = this;
-        $("#ensure_create").bind("click", function () {
-            if (typeof (createNewPanel) == "function") {
-                that.closeMask();
-                createNewPanel();
-                $(this).unbind("click");//避免重复bind出错
-            }
-        })
     }
 }//弹出框
 
@@ -105,7 +77,7 @@ function Container() {
             var armlist = [];
             for (var j = 0; j < i; j++) {//找出当前元素的前面的元素
                 if ((clist[j].col <= clist[i].col && clist[i].col < clist[j].col + clist[j].sizeX)
-                    || (clist[j].col < clist[i].col + clist[i].sizeX && clist[i].col + clist[i].sizeX <clist[j].col + clist[j].sizeX)
+                    || (clist[j].col < clist[i].col + clist[i].sizeX && clist[i].col + clist[i].sizeX < clist[j].col + clist[j].sizeX)
                     || (clist[j].col >= clist[i].col && (clist[j].col + clist[j].sizeX <= clist[i].col + clist[i].sizeX))) {
                     //如果 他们出现在当前row的范围里面那么记录下来
                     armlist.push(clist[j])
@@ -124,7 +96,6 @@ function Container() {
                 }
                 row = max;
             }
-
 
             //box移动过程中，拖拽box不参与位置变动
             if (!clist[i].el.attr("lock")) {
@@ -161,146 +132,126 @@ function Container() {
     }
     this.init();
 }
+//添加框
 function AddCon() {
-   var psel= container.conlist[container.conlist.length-1];
     var that = this;//用于在function里面使用更加方便
     this.el = $(".add_new_con");
     this.sizeX = 5;//所占宽度是多少
     this.sizeY = 1;//所占高度是多少
     this.col = 1;//所在多少列
-    this.row =psel.sizeY+psel.row;//所在多少行
+    this.row = 1;//所在多少行
     var sizeX_w = container.sizeX[this.sizeX - 1];
     var sizeY_h = container.sizeY[this.sizeY - 1];
-    this.el.css({width:sizeX_w + "px",
-        height: sizeY_h + "px"});
-
+    this.el.css({
+        width: sizeX_w + "px",
+        height: sizeY_h + "px"
+    });
     //调整盒子位置
     this.adjustBoxPosition = function () {
-        var col_l =container.Col[this.col - 1];
+        var col_l = container.Col[this.col - 1];
         var row_t = container.Row[this.row - 1];
         this.el.animate({
             left: col_l + "px",
             top: row_t + "px"
         }, "fast");
     }
-
-    function init() {
-        that.adjustBoxPosition();
-        container.conlist.push(that);
-        container.adjustAllBoxPosition();
-
-        //添加框事件bind
-        $("#add_con").bind("click", function () {
-            Mask_con.chooseCreate(function () {
-                //如果是用户选择了创建那么运行创建函数
-                var dr = new DragCon(Mask_con.panel_name,Mask_con.panel_src, 5, 4, that.col, that.row);
-                container.conlist.pop();
-                container.conlist.push(dr);
-                container.conlist.push(that);
-                container.adjustAllBoxPosition();
-                addPanelLabel(Mask_con.panel_name,Mask_con.panel_src);
-            });
-        });
-
-        defaultPanelDeal();
-
-    }
-    init();
-}
-
-//弹出层的显示panel处理
-function defaultPanelDeal(){
-   var lblist= $(".default_panel span");
-    for(var i=0;i<elInfo.length;i++){
-        var flag=true;
-        for (var j=0;j<lblist.length;j++){
-            if(elInfo[i].name==lblist[j].getAttribute("data-name")){
-                $(lblist[j]).addClass("active");
-                flag=false;
-                $(lblist[j]).bind("click",function(){
-                    dispalyPanel(this);
-                });
-                break;
-            }
-
-        }
-    if(flag){
-        addPanelLabel(elInfo[i].name,elInfo[i].src);
-    }
-    }
-    //没有选择的的默认标签点击事件
-     $(".defaultlb:not(.active)").bind("click",function(){
-         dispalyPanel(this);
-     });
-
-}
-
-
-
-
-function dispalyPanel(el){
-    if($(el).hasClass("active")){//如果显示就删除
-        var name= el.getAttribute("data-name");
-        for(var i=0;i<container.conlist.length;i++){
-            if(container.conlist[i].type==name){
-                container.conlist[i].delete();
-                $(el).removeClass("active");
-                console.log($(el).hasClass("defaultlb"));
-                if(!$(el).hasClass("defaultlb")){
-                    $(el).remove();
-                }//如果不是默认的panel就删除掉显示的标签;
-
-            }
-        }
-
-    }
-    else{//否则添加
-        $(el).addClass("active");
-        var dr = new DragCon(el.getAttribute("data-name"),el.getAttribute("data-src"), 5, 4, add_con.col, add_con.row);
-        container.conlist.pop();
-        container.conlist.push(dr);
-        container.conlist.push(add_con);
-        container.adjustAllBoxPosition();
-    }
-}
-function  addPanelLabel(name,src){
-  var span=$("<span data-name='"+name+"' data-src='"+src+"' class='active'>"+name+"</span>");
-  $(".default_panel").append(span);
-    span.bind("click",function(){
-        dispalyPanel(this);
+    //添加框事件bind
+    $("#add_con").bind("click", function () {
+        Mask_con.openMask();
     });
+
 }
 
 
+////弹出层的显示panel处理
+//function defaultPanelDeal(){
+//   var lblist= $(".default_panel span");
+//    for(var i=0;i<elInfo.length;i++){
+//        var flag=true;
+//        for (var j=0;j<lblist.length;j++){
+//            if(elInfo[i].name==lblist[j].getAttribute("data-name")){
+//                $(lblist[j]).addClass("active");
+//                flag=false;
+//                $(lblist[j]).bind("click",function(){
+//                    dispalyPanel(this);
+//                });
+//                break;
+//            }
+//
+//        }
+//    if(flag){
+//        addPanelLabel(elInfo[i].name,elInfo[i].src);
+//    }
+//    }
+//    //没有选择的的默认标签点击事件
+//     $(".defaultlb:not(.active)").bind("click",function(){
+//         dispalyPanel(this);
+//     });
+//
+//}
 
 
+//
+//
+//function dispalyPanel(el){
+//    if($(el).hasClass("active")){//如果显示就删除
+//        var name= el.getAttribute("data-name");
+//        for(var i=0;i<container.conlist.length;i++){
+//            if(container.conlist[i].type==name){
+//                container.conlist[i].delete();
+//                $(el).removeClass("active");
+//                console.log($(el).hasClass("defaultlb"));
+//                if(!$(el).hasClass("defaultlb")){
+//                    $(el).remove();
+//                }//如果不是默认的panel就删除掉显示的标签;
+//
+//            }
+//        }
+//    }
+//    else{//否则添加
+//        $(el).addClass("active");
+//        var dr = new DragCon(el.getAttribute("data-name"),el.getAttribute("data-src"), 5, 4, add_con.col, add_con.row);
+//        container.conlist.pop();
+//        container.conlist.push(dr);
+//        container.conlist.push(add_con);
+//        container.adjustAllBoxPosition();
+//    }
+//}
+//function  addPanelLabel(name,src){
+//  var span=$("<span data-name='"+name+"' data-src='"+src+"' class='active'>"+name+"</span>");
+//  $(".default_panel").append(span);
+//    span.bind("click",function(){
+//        dispalyPanel(this);
+//    });
+//}
 
 
 /*
  * 面板对象
  * @param
- * type:面板类型(面板头上的文字)
+ * id:标识
+ * name:面板名称(面板头上的文字)
  * src:面板显示的源
  * sX:宽度多少格
  * sY:高度多少格
  * cl:在多少列
  * rw:在多少行
  * */
-function DragCon(type, src, sX, sY, cl, rw) {
+function DragCon(id,name, src, sX, sY, cl, rw) {
     //el被拖动的元素,drag_bar移动控制条,resize_bar,改变大小控制条
-    sX=parseInt(sX), sY=parseInt(sY),cl=parseInt(cl) ,rw=parseInt(rw);
+
+    sX = parseInt(sX), sY = parseInt(sY), cl = parseInt(cl) , rw = parseInt(rw);
 
     //创建元素
     this.creatDragcon = function () {
-
-        var el = $("  <li class='con' data-sizeX='" + sX + "' data-sizeY='" + sY + "' data-col='" + cl + "' data-row='" + rw + "'> " +
+        var el = $(" <li class='con' data-sizeX='" + sX + "' data-sizeY='" + sY + "' data-col='" + cl + "' data-row='" + rw + "'> " +
             "<div class='drag_bar'> " +
-            "<span class='con_head_type'>" + type + "</span> " +
+            "<span class='con_head_name'>" + name + "</span> " +
             "<span class='con_head_delete'></span> " +
             "<span class='con_head_refresh'></span> " +
             "</div> " +
             "<div class='con_content'> " +
-            "<iframe  frameborder='0' scrolling='yes' src='" + src + "'></iframe> " +
+            "<iframe   frameborder='0' scrolling='yes' src='" + src + "'></iframe> " +
             "</div> " +
             "<span class='resize_bar'><span></span></span> " +
             "</li>");
@@ -314,12 +265,12 @@ function DragCon(type, src, sX, sY, cl, rw) {
             left: col_l + "px",
             top: row_t + "px"
         });
-
         $(".add_new_con").before(el);
         return el;
     }
     //初始化参数
-    var that = this;//用于在function里面使用更加方便
+    var that = this;
+    this.id=id;
     this.el = this.creatDragcon();
     this.drag_bar = this.el.find(".drag_bar");
     this.resize_bar = this.el.find(".resize_bar");
@@ -327,19 +278,17 @@ function DragCon(type, src, sX, sY, cl, rw) {
     this.sizeY = sY;//所占高度是多少
     this.col = cl;//所在多少列
     this.row = rw;//所在多少行
-    this.type=type;
+    this.name = name;
     //控制初始化的时候创建的panel超出container
-    if(this.col+this.sizeX>container.sizeX.length){
-        this.col=container.sizeX.length-this.sizeX+1;
-
-        this.sizeX=Math.min(this.sizeX,container.sizeX.length)
+    if (this.col + this.sizeX > container.sizeX.length) {
+        this.col = container.sizeX.length - this.sizeX + 1;
+        this.sizeX = Math.min(this.sizeX, container.sizeX.length);
     }
 
     this.refresh = this.el.find(".con_head_refresh");//刷新
     this.dt = this.el.find(".con_head_delete");//删除
-
     this.con_content = this.el.find("iframe");//嵌入的内容
-    this.con_src = src;
+    this.src = src;
 
     //初始记录鼠标的位置也用来记录鼠标上一次的位置
     this.mouse_left = 0;
@@ -347,40 +296,20 @@ function DragCon(type, src, sX, sY, cl, rw) {
 
     //refresh  click事件
     this.refresh.click(function () {
-        that.con_content.attr('src', that.con_src);
+        that.con_content.attr('src', that.src);
     });
     //delete click事件
     this.dt.click(function () {
         //去掉当前节点
-        that.delete();
+        that.el.remove();
+        //后台数据删除
+        delelteItem(that.id);
     });
-    this.delete=function(){
-        var len = container.conlist.length;
-        for (var i = 0; i < len; i++) {
-            if (container.conlist[i].el == that.el) {
-                container.conlist.splice(i, 1);
-                that.el.remove();
-                $(".default_panel>span").each(function(){
-                    if(that.type==this.getAttribute("data-name") && that.con_src ==this.getAttribute("data-src") ){
-
-
-                      if($(this).hasClass("defaultlb")){
-                          $(this).removeClass("active");
-                      }
-                        else {
-                          $(this).remove();
-                      }
-                    }
-                })
-                break;
-            }
-        }
-        container.adjustAllBoxPosition();
-    }
-
     //给drag_bar bind mousedown事件
     this.drag_bar.bind("mousedown", function (e) {
         that.mouse_left = e.clientX, that.mouse_top = e.clientY;
+        //隐藏内容
+        that.con_content.css("display", "none");
         //添加拖动标志
         that.el.css({"z-index": 998, "box-shadow": "0px 0px 2px 2px rgba(23, 140, 223, 0.3)"});
         that.el.attr("lock", "locked");
@@ -411,7 +340,8 @@ function DragCon(type, src, sX, sY, cl, rw) {
     };
     function mouseUpDrag(e) {
         $(document).unbind("mousemove", mouseMoveDrag).unbind("mouseup", mouseUpDrag);
-
+        //显示内容
+        that.con_content.css("display", "block");
         //解锁标志
         that.el.attr("rlock", "rlocked");
         container.adjustAllBoxPosition();
@@ -431,8 +361,8 @@ function DragCon(type, src, sX, sY, cl, rw) {
 
     //调整盒子位置
     this.adjustBoxPosition = function () {
-        var col_l =container.Col[this.col - 1];
-        var row_t =container.Row[this.row - 1];
+        var col_l = container.Col[this.col - 1];
+        var row_t = container.Row[this.row - 1];
         this.el.animate({
             left: col_l + "px",
             top: row_t + "px"
@@ -504,12 +434,47 @@ function DragCon(type, src, sX, sY, cl, rw) {
 //后台传入的要显示的panel
 
 //初始创建要显示的panel
-function initCreatePanel(){
-    for(var i=0;i<elInfo.length;i++){
-        var dr = new DragCon(elInfo[i].name,elInfo[i].src, elInfo[i].sX, elInfo[i].sY, elInfo[i].cl, elInfo[i].rw);
+function initCreatePanel() {
+    for (var i = 0; i < elInfo.length; i++) {
+        var dr = new DragCon(elInfo[i].id,elInfo[i].name, elInfo[i].src, elInfo[i].sX, elInfo[i].sY, elInfo[i].cl, elInfo[i].rw);
         container.conlist.push(dr);
-     }
+
+    }
 }
+
+
+//元素的删除  传入元素的标识
+function delelteItem(id){
+    var i,j, k,dtnum;
+
+    //container.listcon元素删除//以及elInfo数据更新
+    elInfo.splice(0,elInfo.length);
+    for (i=0;i<container.conlist.length;i++){
+        if(container.conlist[i].id==id){
+            dtnum=i;
+        }
+        else {
+            elInfo.push( {id:container.conlist[i].id,"name": container.conlist[i].name, "src": container.conlist[i].src, "sX": container.conlist[i].sizeX, "sY": container.conlist[i].sizeY, "cl": container.conlist[i].col, "rw": container.conlist[i].row})
+        }
+    }
+    container.conlist.splice(dtnum,1);
+
+    //后台记录的数据删除//ajax处理
+    //把更新后elInfo更新后的数据传入到后台
+    // ~~~~(>_<)~~~~///
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
