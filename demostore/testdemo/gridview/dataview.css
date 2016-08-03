@@ -1,0 +1,181 @@
+.dataview {
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: #4c4c4c;
+}
+
+.dataview .header {
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+	position: relative;
+	display: table;
+	table-layout: fixed;
+	border-left: 1px solid #ddd;
+}
+
+.dataview .header>div {
+	padding: 0px;
+	margin: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-right: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	display: table-cell;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: center;
+	line-height: 200%;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.dataview .header>div .sort_con {
+	display: inline-block;
+	width: 10px;
+	height: 12px;
+	position: absolute;
+	margin: auto;
+	top: 0px;
+	bottom: 0px;
+	right: 2px;
+	cursor: pointer;
+}
+
+.dataview .header>div .desc {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #bfbfbf;
+}
+
+.dataview .header>div .asc {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: inline-block;
+	width: 0px;
+	height: 0px;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #bfbfbf;
+}
+
+.dataview .content {
+	position: relative;
+	top: -1px;
+	overflow: auto;
+}
+
+.dataview .content .con {
+	border-collapse: collapse;
+	box-sizing: border-box;
+	table-layout: fixed;
+	width: 0px;
+	display: table;
+}
+
+.dataview .content .con .tr {
+	display: table-row;
+}
+
+.dataview .content .con .tr:hover {
+	color: #2CD8BA;
+}
+
+.dataview .content .con .td {
+	line-height: 200%;
+	display: table-cell;
+	padding: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dataview .footer {
+	width: 100%;
+	padding: 0px;
+
+	margin: 0px;
+	box-sizing: border-box;
+	position: relative;
+	display: table;
+	table-layout: fixed;
+	border-collapse: collapse;
+    background-color:#E6E7ED ;
+	min-width: 400px;
+	text-align: right;
+}
+
+.dataview .footer div {
+	width: 100%;
+	margin-top: 3px;
+	padding-right: 20px;
+	height: 26px;
+	box-sizing: border-box;
+	/*border: 1px solid red;*/
+	/*line-height: 24px;*/
+}
+.dataview .footer .footbtn{
+	cursor: pointer;
+	padding: 5px 8px 5px 8px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	vertical-align: middle;
+	/*margin-left: 5px;*/
+	margin-right: 10px;
+	background-color: white;
+}
+.footactive{
+	color: #1D96E8;
+}
+.footactive:hover{
+	background-color: #DDEFFE;
+}
+.footunactive{
+	color: #89CAF6
+}
+.footunactive:hover{
+	background-color: #EEF7FF;
+}
+
+
+
+.dataview .footer .footbtn:hover{
+	color: #1D96E8;
+
+ }
+.dataview .footer select {
+	width: 50px;
+	height: 24px;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	margin-right: 10px;
+}
+
+.dataview .footer input{
+	width: 26px;
+	height: 20px;
+	padding: 0px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	vertical-align: middle;
+	margin-right:4px;
+
+}
+
+

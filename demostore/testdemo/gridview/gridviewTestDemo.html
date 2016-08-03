@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>simpleTableTest</title>
+    <link rel="stylesheet" href="./dataview.css">
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+</head>
+<style>
+
+</style>
+<body>
+
+
+<div id="mytable" >
+
+
+</div>
+
+<div id="mytable1" >
+
+
+</div>
+
+<div id="mytable2" >
+
+
+</div>
+
+</body>
+<script src="../base/jquery-1.11.0.min.js"></script>
+<script src="gridview.core.js"></script>
+<script src="gridview.footer.js"></script>
+<script>
+
+
+    //简单表数据构造
+    //构造表属性
+    var o = {};
+    o.id = 'table';//表格id
+    o.name = '简单表格';
+    o.width = "80%";//表格宽度
+    o.height = "400px";//表格高度
+    o.rowHeight="30px";//一行的高度
+    o.headerColumnsRows = "1";//表头高度占多少行的高度
+    o.defaultColumnWidth = "80px";//默认宽度80px
+    o.showToolpaging=true;//是否分页 true||false
+    o.footerOptions={
+        pageSize:10
+    }
+
+
+
+    //构造列信息
+    var c = [];
+    for(var i=0;i<5;i++){
+        var c_item = {};
+        c_item.id = "id_"+i;
+        c_item.name = "列_"+i;
+        c_item.field = "field_"+i;//列对应的数据列名称
+        c_item.width = "100px";
+        c_item.align = "center";
+        c_item.showDetailed = true;
+        c_item.headerBackgroundColor = "#E6E7ED";
+        c_item.sortable="true";
+        c.push(c_item);
+    }
+
+    //构造数据
+
+var data=[];
+    for(var i=0;i<100;i++){
+        data.push(
+                {   field_0:"编号"+i,
+                    field_1:"小明"+i,
+                    field_2:"性别男",
+                    field_3:i,
+                    field_4:"肤色黄"}
+ );
+    }
+
+
+var ST= new Slick.GridView("mytable",c, data, o);
+    var ST1= new Slick.GridView("mytable1",c, data, o);
+    var ST2= new Slick.GridView("mytable2",c, data, o);
+
+
+</script>
+</html>
