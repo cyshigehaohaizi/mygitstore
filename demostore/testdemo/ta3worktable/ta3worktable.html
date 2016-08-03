@@ -8,7 +8,7 @@
 <body>
 <div id="drop_factory">
     <ul class="auto_con">
-        <li class="con add_new_con" data-sizeX='5' data-sizeY="1" data-col="1" data-row="1">
+        <li class="con add_new_con" >
             <span id="add_con">
                  <span class="vertical"></span>
                 <span class="horizontal"></span>
@@ -25,9 +25,30 @@
             <span id="close_mask">×</span>
         </div>
         <div class="mask_content_con">
-            面板名称<input type="text" id="m_name" value="名称"/><br/>
-            面板路径<input type="text" id="m_src" value="https://www.baidu.com/"/>
-            <div id="ensure_create">确认创建</div>
+            <p>默认面板</p>
+            <div class="default_panel">
+                <span data-name="代办" data-src="test.html" class="defaultlb">代办</span>
+                <span data-name="系统" data-src="test.html"  class="defaultlb">系统</span>
+                <span data-name="通知" data-src="test.html"  class="defaultlb">通知</span>
+                <span data-name="协同管理" data-src="test.html"  class="defaultlb">协同管理</span>
+                <span data-name="工作量统计" data-src="test.html"  class="defaultlb">工作量统计</span>
+
+            </div>
+            <p>添加自定义面板</p>
+            <div class="add_panel">
+                    <div>
+                    <div>
+                      <label >名称:</label><input type="text" id="m_name" />
+                    </div>
+                    <div>
+                        <label > 路径:</label><input type="text" id="m_src" />
+                    </div>
+                    </div>
+                <span id="ensure_create">确认创建</span>
+            </div>
+
+
+
         </div>
     </div>
 </div>

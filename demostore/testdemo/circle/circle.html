@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    .circleProgress{
+        width: 200px;
+        height: 200px;
+        /*margin: 50px auto;*/
+        position: relative;
+
+    }
+    .wrapper{
+        width: 100px;
+        height: 200px;
+        position: absolute;
+        top:0;
+        overflow: hidden;
+    }
+    .right{
+
+        right: 0;
+    }
+    .left{
+
+        left: 0;
+    }
+    .circle{
+        width: 200px;
+        height: 200px;
+        border:20px solid transparent;
+        border-radius: 50%;
+        position: absolute;
+        top:0;
+
+    }
+    .rightcircle{
+        border-top:20px solid green;
+        border-right:20px solid green;
+        right:0;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+    .leftcircle{
+        border-bottom:20px solid green;
+        border-left:20px solid green;
+        left:0;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    .bg_circle{
+        /*background-color: greenyellow;*/
+        width: 200px;
+        height: 200px;
+        border-radius: 100%;
+        border: 20px solid greenyellow;
+    }
+</style>
+<body>
+
+<p>css实现进度圈;只需要调整leftcircle和rightcircle的旋转角度就行了</p>
+
+<div class="circleProgress">
+    <div class="wrapper right">
+        <div class="circle rightcircle"></div>
+    </div>
+    <div class="wrapper left">
+        <div class="circle leftcircle"></div>
+    </div>
+    <div class="bg_circle"></div>
+</div>
+
+</body>
+</html>
