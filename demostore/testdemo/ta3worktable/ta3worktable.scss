@@ -24,6 +24,10 @@ $miancolor: #178CDF;
 
 body {
   font-family: "Microsoft YaHei";
+  padding: 0px;
+  margin: 0px;
+
+
 }
 
 ul {
@@ -35,11 +39,11 @@ ul {
 
 #drop_factory {
   position: absolute;
-  //margin: auto;
+  margin: auto;
   //height: 1814px;
-  width: 100%;
+  width: 95%;
   top: 0px;
-  left: 0px;
+  left: 5%;
   right: 0px;
   bottom: 0px;
   border: 1px solid #ccc;
@@ -65,26 +69,50 @@ ul {
 }
 
 .add_new_con {
-  border: 2px dotted #aaa;
+  box-sizing: content-box;
+  position: fixed;
+  right: 5%;
+  display: inline-block;
   text-align: center;
-  z-index: 0;
+  z-index: 999;
+  background-color: $miancolor;
+  height: 40px;
+  width: 40px;
+  bottom: 5%;
+  border-radius: 100%;
+  cursor: pointer;
+  -webkit-transition: all .3s linear;
+  -moz-transition: all .3s linear ;
+  -ms-transition: all .3s linear ;
+  -o-transition: all .3s linear ;
+  transition: all .3s linear ;
+  box-shadow: 0px 0px 4px 1px #fff, 0px 0px 0px 1px $miancolor;
+  &:hover{
+
+    box-shadow:0px 0px 4px 10px #fff, 0px 0px 0px 9px $miancolor;
+  }
+
+
+
 }
+
+
+
+
 
 .add_new_con > span {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  border: 2px dotted #aaa;
-  margin-top: 7px;
+  width: 30px;
+  height: 30px;
+  //border: 2px dotted #aaa;
+  margin-top: 4px;
   text-align: center;
   cursor: pointer;
 
+
 }
 
-.add_new_con > span:hover {
-  background-color: #ccc;
-}
 
 .add_new_con > span .vertical {
   position: absolute;
@@ -92,7 +120,8 @@ ul {
   top: 15%;
   left: 49%;
   height: 77%;
-  border-right: 2px solid #aaa;
+  border-right: 2px solid #fff;
+
 
 }
 
@@ -102,7 +131,8 @@ ul {
   width: 77%;
   top: 50%;
   left: 16%;
-  border-bottom: 2px solid #aaa;
+  border-bottom: 2px solid #fff;
+
 
 }
 
@@ -124,6 +154,8 @@ ul {
   text-align: left;
   overflow: hidden;
   padding-top: 5px;
+  padding-left: 20px;
+  font-size: 14px;
 }
 
 .drag_bar .con_head_type {
@@ -136,6 +168,7 @@ ul {
   float: right;
   margin-right: 10px;
   cursor: pointer;
+  margin-top: 2px;
 }
 
 .drag_bar .con_head_refresh:before {
@@ -148,6 +181,7 @@ ul {
   cursor: pointer;
   float: right;
   margin-right: 10px;
+  margin-top: 3px;
 }
 
 .drag_bar .con_head_delete:before {
@@ -200,6 +234,9 @@ ul {
   right: 0px;
   bottom: 0px;
   top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   z-index: 999;
   background-color: rgba(17, 17, 17, 0.47);
   .mask_bg{
