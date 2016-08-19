@@ -470,7 +470,9 @@ function defaultPanelDeal() {
                 var  r=eli?eli.row+eli.sizeY:1;
                 var dr = new DragCon(id, name, src, 5, 4,1,r);
                 container.conlist.push(dr);
+
                 container.adjustAllBoxPosition();
+                refreshPanelInfo();
             }
         }
     }
