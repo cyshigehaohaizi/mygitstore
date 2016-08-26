@@ -3359,41 +3359,14 @@ if (typeof Slick === "undefined") {
             return ranges;
         }
 
+        //获取选择行的index,返回的是一个行号数组
         function getSelectedRows() {
             if (!selectionModel) {
                 throw "Selection model is not set";
             }
             return selectedRows;
         }
-        function getSelectRowsDataToObj(propertyKey) {
-            var select = [], objs = [];
-            select = getSelectedRows();
-            for (var i = 0; i< select.length; i ++) {
-                // delete select[i].__id___;
-                var objNew = getDataItem(select[i]);
-                //先判断取得的数据是否存在;
-                if(objNew){
-                    if (columnPropertyKey.length != 0 ) {
-                        var rowObj = {};
-                        for (var j in objNew) {
-                            for (var jj = 0; jj < columnPropertyKey.length; jj ++) {
-                                if (j == columnPropertyKey[jj]) {
-                                    rowObj[j] = objNew[j];
-                                }
-                            }
-                        }
-                        rowObj._row_ = select[i];
-                        objs.push(rowObj);
-                    } else {
-                        objNew._row_ = select[i]; // lins 添加行号，20121203
-                        objs.push(objNew);
-                    }
-                }
 
-                // delete objNew.__id___;
-            }
-            return objs;
-        }
 
         function setSelectedRows(rows) {
             if (!selectionModel) {

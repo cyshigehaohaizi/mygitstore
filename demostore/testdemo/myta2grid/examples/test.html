@@ -60,7 +60,7 @@
         {id:"img",name:"图片",formatter:Slick.Formatters.ImageModel,image:"add.png"},//图片
         {id:"collection",name:"码表",field:"collection",formatter:Slick.Formatters.collection,collection:"AKC269",sortable: true},//码表
         {id:"date",name:"日期",field:"date",formatter:Slick.Formatters.format,format:"yyyy-MM-dd hh:mm:ss",align:"right"},//日期显示
-        {id:"style",name:"样式",field:"style1",align:"right",color:"red",backgroundColor:"#ccc",display:""},//样式
+        {id:"style",name:"样式",field:"style",align:"right",color:"red",backgroundColor:"#ccc",display:""},//样式
         {id:"numtest",name:"表达式测试",field:"numtest",onclick:"Test(this)",ondblclick:"Test2(1)"},
         {id:"bke005",name:"表达式",field:"bke005",formatter:Slick.Formatters.valueExpression,
             valueExpression:"(Number(bke005)==3)?bke005='终审':bke005=bke005",styleExpression:"(Number(bke005)<=0)?{background_color:'red'}:null"}
@@ -86,10 +86,11 @@
             d["name"]="小明"+i;
             d["collection"]=(i%2==0);
             d["date"]=new Date();
-            d["style1"]="样式";
+            d["style"]="样式";
             d["numtest"]=i;
             d["bke005"]=i;
         }
+
         var options={
             enableCellNavigation: true,//就是一个优化速度的
 //          forceFitColumns:true,//自动列的宽度使填满表格;这时候宽度可能不起作用
@@ -104,6 +105,9 @@
             allowExport:true,
             exportExcelName:"导出",
 
+            autoLoadData:true,//自动加载数据 true||false
+            exportNoHead:true,//导出的时候是否包括表头,默认true
+
 
         }
 
@@ -111,7 +115,7 @@
         $("#exportExcel").bind("click",function(){
 
 
-            mygrid.exportDefaultGridData("xuanze")
+            mygrid.exportDefaultGridData("dangqian")
         })
 
 

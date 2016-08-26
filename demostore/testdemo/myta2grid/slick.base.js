@@ -8,8 +8,6 @@ function ta2CreateSlickGrid(container, cols, options,da){
     //视图初始化
     var dataView = new Slick.Data.DataView();
 
-
-
     //判断是否有选择框
     var columns= cols;
     if(options.selectType){
@@ -29,13 +27,11 @@ function ta2CreateSlickGrid(container, cols, options,da){
 
     //表格初始化
     var grid = new Slick.Grid(container, dataView, columns, options);
-
     if(options.selectType){
         grid.registerPlugin(selectProduct);
         //选择模式是行选择模式
         grid.setSelectionModel(new Slick.RowSelectionModel());
     }
-
 
     //让grid响应dataview的改变事件
     dataView.onRowCountChanged.subscribe(function (e, args) {
@@ -47,25 +43,10 @@ function ta2CreateSlickGrid(container, cols, options,da){
         grid.render();
     });
 
-
-
-    //数据装载
-    if(da){//如果有da直接显示数据
-        dataView.setItems(da,"name");
-    }else if(options.url){//异步
-        $.ajax({
-            type:'post',
-            url:options.url,
-            data:{},
-            success:function(data){
-                dataView.setItems(data,"name");
-            },
-            error:function(){}
-        });
-    }else {
-        dataView.setItems([]);
+    //装载数据判断是否自动装载数据
+    if(options.autoLoadData!=false){
+        ta2SlickGridLoadDate(da)
     }
-
 
 
     //dataViewSort排序
@@ -82,23 +63,21 @@ function ta2CreateSlickGrid(container, cols, options,da){
 
 
     //表格导出
-    /**
-     * 表格默认导出方法
-     */
-   grid.exportDefaultGridData=function(args, options) {
-        var a, b;
-        if (args == "dangqian") {//导出当前页
-            a = grid.getColumns();
-            b = dataView.getItems();
-        } else if (args == "xuanze") {//导出选择数据
-            a = grid.getColumns();
-            b = grid.getSelectedRows();
+    function exportDefaultGridData (args, op) {
 
+        var a, b;
+        if (args == "xuanze") {//导出选择的内容
+            a = grid.getColumns();
+            b = grid.getSelectedRowsInfo();
             b = $.extend(true, [], b);
             if (b.length < 1) {
                 alert('请至少选择一条数据');
                 return;
             }
+
+        } else  {//导出当前页面
+            a = grid.getColumns();
+            b = dataView.getItems();
         }
 
         var collection = grid.getOptions().collectionsDataArrayObject;
@@ -111,8 +90,12 @@ function ta2CreateSlickGrid(container, cols, options,da){
                 head.push("\"" + a[i].name + "\"");
             }
         }
+        //是否导出表头
+       if(options.exportNoHead!=false){
+           row.push(head);
+       }
 
-        row.push(head);
+
 
         for (var i = 0; i < b.length; i++) {
             var cells = [];
@@ -153,7 +136,7 @@ function ta2CreateSlickGrid(container, cols, options,da){
             }
             row.push(cells);
         }
-       //console.table(row)
+       console.table(row)
         //var $input = $("<textarea/>").attr("display", "none").val(Ta.util.obj2string(row)).attr("name", "_grid_item_export_excel");
         //var $inputFileName = $("<textarea/>").attr("display", "none").val(options.exportExcelName).attr("name", "_grid__export_excelName");
         //var $form = $("<form/>")//.attr("enctype","multipart/form-data")//.attr("accept-charset", "GBK")
@@ -168,5 +151,47 @@ function ta2CreateSlickGrid(container, cols, options,da){
 
 
 
+
+    //返回选择行的信息
+    grid.getSelectedRowsInfo=function(){
+        //获取选择行的index
+        var rowindex = this.getSelectedRows(),rowsInfo=[];
+        for (var k=0;k<rowindex.length;k++){
+            rowsInfo.push(dataView.getItem(rowindex[k]));
+        }
+        return rowsInfo;
+    }
+
+    //数据加载
+    function ta2SlickGridLoadDate(data){
+        if(data){//如果有da直接显示数据
+            dataView.setItems(data,"name");
+        }else if(options.url){//异步
+            $.ajax({
+                type:'post',
+                url:options.url,
+                data:{},
+                success:function(da){
+                    dataView.setItems(da,"name");
+                },
+                error:function(){}
+            });
+        }else {
+            dataView.setItems([]);
+        }
+    }
+
+
+
+    $.extend(grid, {
+        //数据加载 parma:data,可选,如果没有传入参数,会以options.url读取数据
+        ta2SlickGridLoadDate:ta2SlickGridLoadDate,
+        //表格导出参数
+        exportDefaultGridData:exportDefaultGridData,
+    })
+
     return grid;
 }
+
+
+
